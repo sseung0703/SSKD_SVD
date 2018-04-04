@@ -1,4 +1,4 @@
-Self-supervised Knowledge Distillation using Singular Value Decomposition
+# Self-supervised Knowledge Distillation using Singular Value Decomposition
 
 Abstract. To solve deep neural network (DNN)'s huge training dataset and its high computation issue, so-called teacher-student (T-S) DNN which transfers the knowledge of T-DNN to S-DNN has been proposed[1].
 However, the existing T-S-DNN methods(s) has limited range of use, and the knowledge of T-DNN is not suffciently transferred to S-DNN. 
