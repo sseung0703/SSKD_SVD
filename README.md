@@ -1,5 +1,5 @@
 # Self-supervised Knowledge Distillation using Singular Value Decomposition
-![Alt text](dist.pdf)
+![Alt text](dist.png)
 ## Feature
 - define knowledge by Singular value decomposition
 - fast and efficient learning by multi-task learning
@@ -20,7 +20,7 @@ the code is based on Tensorflow-slim example codes. so if you used that it is ea
 3. train student network using teacher knowledge
 
 ## Results
-
+![Alt text](results.PNG)
 
 
 
