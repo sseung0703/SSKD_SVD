@@ -1,8 +1,28 @@
 # Self-supervised Knowledge Distillation using Singular Value Decomposition
+[Alt text](dist.pdf)
+## Feature
+- define knowledge by Singular value decomposition
+- fast and efficient learning by multi-task learning
+ 
+## Requirments
+- Tensorflow
+- Scipy
 
-Abstract. To solve deep neural network (DNN)'s huge training dataset and its high computation issue, so-called teacher-student (T-S) DNN which transfers the knowledge of T-DNN to S-DNN has been proposed[1].
-However, the existing T-S-DNN methods(s) has limited range of use, and the knowledge of T-DNN is not suffciently transferred to S-DNN. 
-In order to improve the quality of the transferred knowledge from T-DNN, we propose a new knowledge distillation method using singular value de-composition (SVD).
-In addition, we define a knowledge transfer as a self-supervised task and suggest a way to continuously receive information from T-DNN.
-Simulation results show that a S-DNN with a computational cost of 1/5 of the corresponding T-DNN can be up to 1.1% better than the T-DNN in terms of classiffcation accuracy.
-Also assuming the same computational cost, our S-DNN outperforms the S-DNN driven by the state-of-the-art distillation method with a performance advantage of 1.79%.
+Unfortunatly SVD is very slow on GPU. so if i recommend below installation method.
+- install Tensorflow from source which is removed SVD GPU op.(recommended)
+- install ordinary Tensorflow and make SVD using CPU.
+- install Tensorflow version former than 1.2.
+
+## How to Use
+the code is based on Tensorflow-slim example codes. so if you used that it is easy to understand. 
+1. recording Cifar100 dataset to tfrecording file 
+2. train teacher network
+3. train student network using teacher knowledge
+
+## Results
+
+
+
+
+
+
