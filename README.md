@@ -1,5 +1,5 @@
 # Self-supervised Knowledge Distillation using Singular Value Decomposition
-[Alt text](dist.pdf)
+![Alt text](dist.pdf)
 ## Feature
 - define knowledge by Singular value decomposition
 - fast and efficient learning by multi-task learning
