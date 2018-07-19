@@ -8,7 +8,7 @@
 - Tensorflow
 - Scipy
 
-Unfortunatly SVD is very slow on GPU. so if i recommend below installation method.
+Unfortunatly SVD is very slow on GPU. so  recommend below installation method.
 - Install Tensorflow from source which is removed SVD GPU op.(recommended)
 - Install ordinary Tensorflow and make SVD using CPU.
 - Install Tensorflow version former than 1.2.
