@@ -20,7 +20,7 @@ The code is based on Tensorflow-slim example codes. so if you used that it is ea
 3. Train student network using teacher knowledge
 
 ## Results
-![Alt text](results.PNG)
+![Alt text](results.png)
 
 ## Paper
 This research accepted to ECCV2018 poster session, and i will link my papaer soon
