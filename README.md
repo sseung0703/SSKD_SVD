@@ -23,7 +23,8 @@ The code is based on Tensorflow-slim example codes. so if you used that it is ea
 ![Alt text](results.png)
 
 ## Paper
-This research accepted to ECCV2018 poster session, and i will link my papaer soon
+This research accepted to ECCV2018 poster session
+and arxiv version paper is available on https://arxiv.org/abs/1807.06819
 
 
 
