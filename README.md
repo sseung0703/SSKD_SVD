@@ -25,6 +25,7 @@ The code is based on Tensorflow-slim example codes. so if you used that it is ea
 ## Paper
 This research accepted to ECCV2018 poster session
 and arxiv version paper is available on https://arxiv.org/abs/1807.06819
+and ECCV format paper is available on http://openaccess.thecvf.com/content_ECCV_2018/papers/SEUNG_HYUN_LEE_Self-supervised_Knowledge_Distillation_ECCV_2018_paper.pdf
 
 
 
