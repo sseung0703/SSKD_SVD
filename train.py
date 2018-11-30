@@ -114,7 +114,7 @@ def MODEL(model_name, weight_decay, image, label, lr, epoch, is_training):
                                      tf.to_int32(tf.argmax(label, 1)))
             tf.summary.scalar('loss', loss)
             tf.summary.scalar('accuracy', accuracy)
-            losses.append(loss)
+            losses.append(loss+tf.add_n(tf.losses.get_regularization_losses()))
             
         with tf.variable_scope('Dist_loss'):
             dist_loss = end_points['Dist']
@@ -144,8 +144,6 @@ with tf.Graph().as_default() as graph:
         Learning_rate = tf.case([
                                  (tf.less(epoch,100+init_epoch), lambda : Learning_rate),
                                  (tf.less(epoch,150+init_epoch), lambda : Learning_rate*1e-1),
-#                                 (tf.less(epoch,150+init_epoch), lambda : Learning_rate*1e-2),
-#                                 (tf.less(epoch,200+init_epoch), lambda : Learning_rate*1e-3)
                                  ],
                                  default =                       lambda : 0.0)
         tf.summary.scalar('learning_rate', Learning_rate)
@@ -156,17 +154,14 @@ with tf.Graph().as_default() as graph:
     
     optimizer = tf.train.MomentumOptimizer(distillation_learning_rate(Learning_rate, epoch, init_epoch),
                                            0.9, use_nesterov=True)
-    n = 6*2
-    n_ = 1*2
-    gradient0 = optimizer.compute_gradients(total_loss[0], var_list = variables[:])
-    gradient1 = optimizer.compute_gradients(total_loss[1], var_list = variables[:n-n_])
+    gradient0 = optimizer.compute_gradients(total_loss[0], var_list = variables)
+    gradient1 = optimizer.compute_gradients(total_loss[1], var_list = variables)
     with tf.variable_scope('clip_grad1'):
-        for i, grad in enumerate(gradient0):
-            norm = tf.sqrt(tf.reduce_sum(tf.square(grad[0])))
+        for i, grad in enumerate(gradient1):
             grad0 = grad[0]
-            if i < n-n_:
-                grad0 += tf.clip_by_norm(gradient1[i][0]*sigmoid(epoch+init_epoch,2),norm)
-            gradient0[i] = (grad0, gradient0[i][1])
+            if grad[0] != None:
+                norm = tf.sqrt(tf.reduce_sum(tf.square(gradient0[i][0])))*sigmoid(epoch,0)
+                gradient0[i] = (gradient0[i][0] + tf.clip_by_norm(grad[0],norm),   gradient0[i][1])
     
     update_ops.append(optimizer.apply_gradients(gradient0, global_step=global_step))
     update_op = tf.group(*update_ops)
