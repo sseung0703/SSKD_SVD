@@ -8,7 +8,7 @@ slim = tf.contrib.slim
 
 from nets.Distillation import RAS
 
-def mobile_arg_scope(weight_decay=0.0005):
+def MobileNet_arg_scope(weight_decay=0.0005):
     with slim.arg_scope([slim.batch_norm],decay=0.9,zero_debias_moving_mean=True, scale=True, activation_fn=tf.nn.relu):
         with slim.arg_scope([slim.convolution2d, slim.fully_connected], activation_fn = None,
                             weights_initializer=tf.contrib.layers.variance_scaling_initializer(),
@@ -35,7 +35,7 @@ def _depthwise_separable_conv(inputs, depth, stride=1,
         return bn
         
    
-def mobile(image, is_training=False, val = False, lr = None, prediction_fn=slim.softmax,scope='mobile'):
+def MobileNet(image, is_training=False, val = False, lr = None, prediction_fn=slim.softmax,scope='mobile'):
     end_points = {}
 #    large = sio.loadmat('/home/dmsl/nas/backup1/personal_lsh/model/vgg13.mat')
     with tf.variable_scope('mobile_small'):
@@ -112,4 +112,4 @@ def mobile(image, is_training=False, val = False, lr = None, prediction_fn=slim.
     end_points['Logits'] = logits
     #end_points['Predictions'] = prediction_fn(logits, scope='Predictions')
     return end_points
-mobile.default_image_size = 32
+MobileNet.default_image_size = 32

@@ -11,7 +11,7 @@ slim = tf.contrib.slim
 networks_map   = {
                 'VGG':VGG.VGG,
                 'MobileNet':MobileNet.MobileNet,
-                'ResNext':ECCV.ECCV,
+                'ResNext':ResNext.ResNext,
                  }
 
 arg_scopes_map = {

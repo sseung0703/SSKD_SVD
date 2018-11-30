@@ -21,6 +21,7 @@ from __future__ import print_function
 import tensorflow as tf
 
 from preprocessing import cifar10_preprocessing
+from preprocessing import cifar100_preprocessing
 from preprocessing import imgnet32_preprocessing
 
 slim = tf.contrib.slim
@@ -42,10 +43,9 @@ def get_preprocessing(name, is_training=False):
   Raises:
     ValueError: If Preprocessing `name` is not recognized.
   """
-  preprocessing_fn_map = {'CUB':CUB_preprocessing,
-                          'cifar10':cifar10_preprocessing,
-                          'imgnet64':imgnet64_preprocessing,
-                          'OTB100':OTB100_preprocessing,
+  preprocessing_fn_map = {'cifar10' :cifar10_preprocessing,
+                          'cifar100':cifar100_preprocessing,
+                          'imgnet32':imgnet32_preprocessing,
   }
 
   if name not in preprocessing_fn_map:

@@ -8,7 +8,7 @@ slim = tf.contrib.slim
 
 from nets import Distillation as Dist
 
-def ECCV_arg_scope(weight_decay=0.0005):
+def ResNext_arg_scope(weight_decay=0.0005):
     with slim.arg_scope([slim.batch_norm],decay=0.9,zero_debias_moving_mean=True, scale=True, activation_fn=tf.nn.relu):
         with slim.arg_scope([slim.convolution2d], activation_fn = None,
                             weights_initializer=tf.contrib.layers.variance_scaling_initializer(),
@@ -36,7 +36,7 @@ def bottlenecklayer(x, depth, stride=1, num_split = 8, is_training= False, val =
         return tf.nn.relu(x+conv)
         
    
-def ECCV(image, is_training=False, val = False, lr = None, prediction_fn=slim.softmax,scope='ECCV'):
+def ResNext(image, is_training=False, val = False, lr = None, prediction_fn=slim.softmax,scope='ECCV'):
     end_points = {}
 #    large = sio.loadmat('/home/dmsl/nas/backup1/personal_lsh/model/vgg13.mat')
     with tf.variable_scope('ECCV_small'):
@@ -87,4 +87,4 @@ def ECCV(image, is_training=False, val = False, lr = None, prediction_fn=slim.so
     end_points['Logits'] = logits
     #end_points['Predictions'] = prediction_fn(logits, scope='Predictions')
     return end_points
-ECCV.default_image_size = 32
+ResNext.default_image_size = 32

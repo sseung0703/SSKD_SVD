@@ -35,7 +35,8 @@ def SVD(X, n, name = None):
         else:
             x = tf.reshape(X,[sz[0],1,-1])
             num_decomposed = 1
-        s,u,v = tf.svd(x,full_matrices=False)
+        with tf.device('CPU'):
+            s,u,v = tf.svd(x,full_matrices=False)
 
         s = tf.reshape(s,[sz[0],1,-1])
         
