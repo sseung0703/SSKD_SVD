@@ -14,7 +14,8 @@ Unfortunatly SVD is very slow on GPU. so  recommend below installation method.
 - Install Tensorflow version former than 1.2.
 
 ## How to Use
-The code is based on Tensorflow-slim example codes. so if you used that it is easy to understand. 
+The code is based on Tensorflow-slim example codes. so if you used that it is easy to understand.
+( If you want recoded dataset and trained teacher weights download them on https://drive.google.com/open?id=1sNPkr-hOy3qKNUE8bu5qJpvCGFI7VOJN )
 1. Recording Cifar100 dataset to tfrecording file 
 2. Train teacher network
 3. Train student network using teacher knowledge
