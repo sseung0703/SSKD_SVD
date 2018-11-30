@@ -145,7 +145,7 @@ with tf.Graph().as_default() as graph:
                                  (tf.less(epoch,100+init_epoch), lambda : Learning_rate),
                                  (tf.less(epoch,150+init_epoch), lambda : Learning_rate*1e-1),
                                  ],
-                                 default =                       lambda : 0.0)
+                                 default =                       lambda : Learning_rate*1e-2)
         tf.summary.scalar('learning_rate', Learning_rate)
         return Learning_rate
     
