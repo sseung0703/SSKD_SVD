@@ -35,8 +35,11 @@ def SVD(X, n, name = None):
         else:
             x = tf.reshape(X,[sz[0],1,-1])
             num_decomposed = 1
-        with tf.device('CPU'):
-            s,u,v = tf.svd(x,full_matrices=False)
+            
+        G = tf.get_default_graph()
+        with G.gradient_override_map({"Svd": "Svd_grad"}):
+            with tf.device('CPU'):
+                s,u,v = tf.svd(x,full_matrices=False)
 
         s = tf.reshape(s,[sz[0],1,-1])
         
@@ -144,7 +147,7 @@ def mmul(X):
 def msym(X):
     return (X+tf.matrix_transpose(X))/2
 
-@tf.RegisterGradient('Svd')
+@tf.RegisterGradient('Svd_grad')
 def gradient_svd(op, ds, dU, dV):
     s, U, V = op.outputs
     u_sz = dU.get_shape().as_list()
