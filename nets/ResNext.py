@@ -6,7 +6,7 @@ import tensorflow as tf
 import scipy.io as sio
 slim = tf.contrib.slim
 
-from nets import Distillation as Dist
+from nets.Distillation import RAS
 
 def ResNext_arg_scope(weight_decay=0.0005):
     with slim.arg_scope([slim.batch_norm],decay=0.9,zero_debias_moving_mean=True, scale=True, activation_fn=tf.nn.relu):
@@ -66,22 +66,8 @@ def ResNext(image, is_training=False, val = False, lr = None, prediction_fn=slim
             end_points['Logits2'] = logits2
             
             with tf.variable_scope('Distillation'):
-                with tf.variable_scope('SVD'):
-                    ss0,_,sv0 = Dist.SVD(std0,  name = 'svd_s0')
-                    ts0,_,tv0 = Dist.SVD(teach0,name = 'svd_t0')
-                    
-                    ss1,_,sv1 = Dist.SVD(std1,  name = 'svd_s1')
-                    ts1,_,tv1 = Dist.SVD(teach1,name = 'svd_t1')
-                    
-                    ss2,_,sv2 = Dist.SVD(std2,  name = 'svd_s2')
-                    ts2,_,tv2 = Dist.SVD(teach2,name = 'svd_t2')
-                    
-                    ss3,_,sv3 = Dist.SVD(std3,  name = 'svd_s3')
-                    ts3,_,tv3 = Dist.SVD(teach3,name = 'svd_t3')
-                    
-                with tf.variable_scope('RBF'):
-                    end_points['Dist'] = Dist.RBF_distillation([sv0,sv1,sv2,sv3], [tv0,tv1,tv2,tv3], 
-                                                               [ss0,ss1,ss2,ss3], [ts0,ts1,ts2,ts3])
+                    end_points['Dist'] = RAS([std0,   std1,   std2,     std3],
+                                             [teach0, teach1, teach2, teach3], num_DFV = 1)
     
 
     end_points['Logits'] = logits
