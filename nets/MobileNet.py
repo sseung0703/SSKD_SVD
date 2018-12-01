@@ -83,30 +83,8 @@ def MobileNet(image, is_training=False, val = False, lr = None, prediction_fn=sl
         
             
             with tf.variable_scope('Distillation'):
-                def gram(x,y,p=True,scope=scope):
-                    with tf.variable_scope(scope):
-                        sz0 = x.get_shape().as_list()
-                        sz1 = y.get_shape().as_list()
-                        if p:
-                            x = slim.max_pool2d(x,[2,2])
-                        x = tf.reshape(x,[sz0[0],-1,sz0[-1]])
-                        
-                        return tf.matmul(x,tf.reshape(y,[sz1[0],-1,sz1[-1]]),transpose_a=True)/(sz1[1]*sz1[2])
-                   
-                gs0 = gram(std0,std1,'gram_std0')
-                gs1 = gram(std1,std2,'gram_std1')
-                gs2 = gram(std2,std3,'gram_std2')
-                
-                gt0 = gram(teach0,teach1,'gram_teach0')
-                gt1 = gram(teach1,teach2,'gram_teach1')
-                gt2 = gram(teach2,teach3,'gram_teach2')
-                
-                end_points['Dist'] = tf.reduce_mean(tf.reduce_sum(tf.square(gs0-gt0),[1,2])
-                                                  + tf.reduce_sum(tf.square(gs1-gt1),[1,2])
-                                                  + tf.reduce_sum(tf.square(gs2-gt2),[1,2]))/(64*128+128*256+256*512)
-                
-#                end_points['Dist'] = RAS([std0,   std1,   std2,   std3,   std4],
-#                                         [teach0, teach1, teach2, teach3, teach4], num_DFV = 1)
+                end_points['Dist'] = RAS([std0,   std1,   std2,   std3  ],
+                                         [teach0, teach1, teach2, teach3], num_DFV = 1)
 #    
 
     end_points['Logits'] = logits
