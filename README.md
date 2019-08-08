@@ -1,3 +1,4 @@
+More clear codes are provided at https://github.com/sseung0703/KD_methods_with_TF.
 # Self-supervised Knowledge Distillation using Singular Value Decomposition
 ![Alt text](dist.png)
 ## Feature
